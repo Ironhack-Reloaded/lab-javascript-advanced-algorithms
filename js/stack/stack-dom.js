@@ -11,20 +11,25 @@ const takeStackBtn = document.getElementById('take-stack');
 const newStack = new Stack();
 
 const clearStackInput = () => {
-  // ... your code goes here
+  stackInput.value=''
 };
 
 const renderListStack = () => {
-  // ... your code goes here
+  for(let i = 0; i<10; i++){    
+    stackList.innerHTML += ('<li class="inactive">&nbsp;</li>')
+  }
 };
 
 renderListStack();
 
+
 const generateWarningStack = (type) => {
   if (type === 'underflow') {
-    // ... your code goes here
+    warningBottomStack.style = 'display: block'
+    warningBottomStack.textContent = 'Underflow'
   } else if (type === 'overflow') {
-    // ... your code goes here
+    warningTopStack.style = 'display: block'
+    warningTopStack.textContent = 'overflow'
   }
 };
 
