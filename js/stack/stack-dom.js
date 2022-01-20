@@ -15,8 +15,9 @@ const clearStackInput = () => {
 };
 
 const renderListStack = () => {
-  for(let i = 0; i<10; i++){    
-    stackList.innerHTML += ('<li class="inactive">&nbsp;</li>')
+  for(let i = 0; i<newStack.MAX_SIZE; i++){   
+    stackList.innerHTML += newStack.stackControl[i] != null ? (`<li class="active">${newStack.stackControl[i]}</li>`) : ('<li class="inactive">&nbsp;</li>')
+
   }
 };
 
@@ -24,28 +25,35 @@ renderListStack();
 
 
 const generateWarningStack = (type) => {
-  if (type === 'underflow') {
+  if (type === 'STACK_UNDERFLOW') {
     warningBottomStack.style = 'display: block'
     warningBottomStack.textContent = 'Underflow'
-  } else if (type === 'overflow') {
+  } else if (type === 'STACK_OVERFLOW') {
     warningTopStack.style = 'display: block'
     warningTopStack.textContent = 'overflow'
-  }
+  } 
 };
 
 const addToStack = () => {
   try {
-    // ... your code goes here
-  } catch (error) {
-    // there was an overflow error, handle it
+    newStack.push( stackInput.value )
+    stackList.innerHTML = ''
+    renderListStack()    
+    clearStackInput()
+    warningBottomStack.style = 'display: none'
+  } catch (err) {
+    generateWarningStack(err.toUpperCase())
   }
 };
 
 const removeFromStack = () => {
   try {
-    // ... your code goes here
-  } catch (error) {
-    // there was an underflow error, handle it
+    newStack.pop()
+    stackList.innerHTML = ''
+    renderListStack()
+    warningTopStack.style = 'display: none'
+  } catch (err) {
+    generateWarningStack(err.toUpperCase())
   }
 };
 
